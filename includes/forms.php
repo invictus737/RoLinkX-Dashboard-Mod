@@ -409,6 +409,10 @@ function svxForm() {
 		  <input id="svx_sqd" type="text" class="form-control" placeholder="500" aria-label="Squelch delay" aria-describedby="inputGroup-sizing-sm" '. $sqlDelayValue .'>
 		</div>
 		<div class="input-group input-group-sm mb-1">
+		  <span class="input-group-text" style="width: 8rem;">Default TG</span>
+		  <input id="svx_mtg" type="text" class="form-control" placeholder="226" aria-label="Default TG" aria-describedby="inputGroup-sizing-sm" '. $defaultTgValue .'>
+		</div>
+		<div class="input-group input-group-sm mb-1">
 		  <span class="input-group-text" style="width: 8rem;">Monitor TGs</span>
 		  <input id="svx_mtg" type="text" class="form-control" placeholder="226++" aria-label="Monitor TGs" aria-describedby="inputGroup-sizing-sm" '. $monitorTgsValue .'>
 		</div>
