@@ -116,7 +116,7 @@ preg_match('/(OPUS_ENC_BITRATE=)(\d+)/', $oldCfg, $varCodecBitRate);
 preg_match('/(RGR_SOUND_ALWAYS=)(\d+)/', $oldCfg, $varRogerBeep);
 preg_match('/(GPIO_SQL_PIN=)(\S+)/', $oldCfg, $varRxGPIO);
 preg_match('/(PTT_PIN=)(\S+)/', $oldCfg, $varTxGPIO);
-preg_match('/(DEFAULT_TG=)(.+)/', $oldCfg, $varDefaultTg);
+preg_match('/(DEFAULT_TG=)(\d+)/', $oldCfg, $varDefaultTg);
 preg_match('/(MONITOR_TGS=)(.+)/', $oldCfg, $varMonitorTgs);
 preg_match('/(TG_SELECT_TIMEOUT=)(\d+)/', $oldCfg, $varTgSelTimeOut);
 preg_match('/(SQL_DELAY=)(\d+)/', $oldCfg, $varSqlDelay);
@@ -292,9 +292,7 @@ if ($txGPIOValue != $frmTxGPIO) {
 	++$changes;
 }
 
-$oldVar[12]	= '/(DEFAULT_TG=)(.+)/';
-$frmDefaultTg = preg_replace('/\s{1,}/', ',', $frmDefaultTg);
-$frmDefaultTg = preg_replace('/,{1,}/', ',', $frmDefaultTg);
+$oldVar[12]	= '/(DEFAULT_TG=)(\S+)/';
 $newVar[12]	= '${1}'. $frmDefaultTg;
 if ($defaultTgValue != $frmDefaultTg) {
 	++$changes;
