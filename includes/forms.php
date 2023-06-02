@@ -410,7 +410,7 @@ function svxForm() {
 		</div>
 		<div class="input-group input-group-sm mb-1">
 		  <span class="input-group-text" style="width: 8rem;">Default TG</span>
-		  <input id="svx_dtg" type="text" class="form-control" placeholder="226" aria-label="Default TG" aria-describedby="inputGroup-sizing-sm" '. $defaultTgValue .'>
+		  <input id="svx_dtg" type="text" class="form-control" placeholder="" aria-label="Default TG" aria-describedby="inputGroup-sizing-sm" '. $defaultTgValue .'>
 		</div>
 		<div class="input-group input-group-sm mb-1">
 		  <span class="input-group-text" style="width: 8rem;">Monitor TGs</span>
