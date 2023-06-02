@@ -175,6 +175,7 @@ $profiles['shortIdent'] = $shortIdentValue;
 $profiles['longIdent']	= $longIdentValue;
 $profiles['rogerBeep']	= $rogerBeepValue;
 $profiles['connectionStatus'] = $acsValue;
+$profiles['defaultTg']	= $defaultTgValue;
 
 /* Convert config of new installs */
 if (preg_match('/svx\.ro/', $oldCfg)) {
