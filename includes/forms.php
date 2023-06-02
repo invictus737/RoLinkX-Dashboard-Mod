@@ -244,7 +244,7 @@ function svxForm() {
 	preg_match('/(SQL_DELAY=)(\d+)/', $cfgFileData, $varSquelchDelay);
 	$sqlDelayValue = (isset($varSquelchDelay[2])) ? 'value='. $varSquelchDelay[2] : '';
 	/* Default TG*/
-	preg_match('/(DEFAULT_TG=)(.+)/', $cfgFileData, $varDefaultTg);
+	preg_match('/(DEFAULT_TG=)(\d+)/', $cfgFileData, $varDefaultTg);
 	$defaultTgValue = (isset($varDefaultTg[2])) ? 'value='. $varDefaultTg[2] : '';
 	/* Monitor TGs*/
 	preg_match('/(MONITOR_TGS=)(.+)/', $cfgFileData, $varMonitorTgs);
