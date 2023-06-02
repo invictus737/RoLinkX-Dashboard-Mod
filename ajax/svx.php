@@ -135,7 +135,7 @@ preg_match('/(RECONNECT_SECONDS=)(\d+)\n/', $oldCfg, $varReconnectSeconds);
 
 // Safe category values
 $reflectorValue		= (isset($varReflector[2])) ? $varReflector[2] : '';
-$portValue			= (isset($varPort[2])) ? $varPort[2] : '';
+$portValue		= (isset($varPort[2])) ? $varPort[2] : '';
 $callSignValue		= (isset($varCallSign[2])) ? $varCallSign[2] : '';
 $authKeyValue		= (isset($varAuthKey[2])) ?  $varAuthKey[2] : '';
 $beaconValue		= (isset($varBeacon[2])) ?  $varBeacon[2] : '';
@@ -146,16 +146,17 @@ $codecBitrateValue	= (isset($varCodecBitRate[2])) ? $varCodecBitRate[2] : '';
 $rogerBeepValue		= (isset($varRogerBeep[2])) ? $varRogerBeep[2] : '';
 // Since 1.7.99.62
 $refHostsValue		= (isset($varRefHosts[2])) ? $varRefHosts[2] : '';
-$portsValue			= (isset($varPorts[2])) ? $varPorts[2] : '';
+$portsValue		= (isset($varPorts[2])) ? $varPorts[2] : '';
 
 // Advanced category values
 $rxGPIOValue		= (isset($varRxGPIO[2])) ? $varRxGPIO[2] : '';
 $txGPIOValue		= (isset($varTxGPIO[2])) ? $varTxGPIO[2] : '';
+$defaultTgValue	        = (isset($varDefaultTg[2])) ? $varDefaultTg[2] : '';
 $monitorTgsValue	= (isset($varMonitorTgs[2])) ? $varMonitorTgs[2] : '';
 $tgSelectTOValue	= (isset($varTgSelTimeOut[2])) ? $varTgSelTimeOut[2] : '';
 $txTimeOutValue		= (isset($varTxTimeout[2])) ? $varTxTimeout[2] : '';
 $sqlDelayValue		= (isset($varSqlDelay[2])) ? $varSqlDelay[2] : '';
-$acsValue			= (isset($announceConnectionStatus[2])) ? $announceConnectionStatus[2] : null;
+$acsValue		= (isset($announceConnectionStatus[2])) ? $announceConnectionStatus[2] : null;
 $preEmphasisValue	= (isset($varPreEmphasis[2])) ? $varPreEmphasis[2] : 0;
 $deEmphasisValue	= (isset($varDeEmphasis[2])) ? $varDeEmphasis[2] : 0;
 $masterGainValue	= (isset($varMasterGain[2])) ? $varMasterGain[2] : null;
@@ -164,12 +165,12 @@ $reconnectSValue	= (isset($varReconnectSeconds[2])) ? $varReconnectSeconds[2] : 
 
 /* Profile defaults */
 $profiles['reflector']	= $reflectorValue;
-$profiles['port']		= $portValue;
+$profiles['port']	= $portValue;
 $profiles['callsign']	= $callSignValue;
-$profiles['key']		= $authKeyValue;
-$profiles['beacon']		= $beaconValue;
+$profiles['key']	= $authKeyValue;
+$profiles['beacon']	= $beaconValue;
 $profiles['bitrate']	= $codecBitrateValue;
-$profiles['type']		= 'nod portabil';
+$profiles['type']	= 'nod portabil';
 $profiles['shortIdent'] = $shortIdentValue;
 $profiles['longIdent']	= $longIdentValue;
 $profiles['rogerBeep']	= $rogerBeepValue;
@@ -290,70 +291,78 @@ if ($txGPIOValue != $frmTxGPIO) {
 	++$changes;
 }
 
-$oldVar[12]	= '/(MONITOR_TGS=)(.+)/';
+$oldVar[12]	= '/(DEFAULT_TG=)(.+)/';
+$frmDefaultTg = preg_replace('/\s{1,}/', ',', $frmDefaultTg);
+$frmDefaultTg = preg_replace('/,{1,}/', ',', $frmDefaultTg);
+$newVar[12]	= '${1}'. $frmDefaultTg;
+if ($defaultTgValue != $frmDefaultTg) {
+	++$changes;
+}
+
+$oldVar[13]	= '/(MONITOR_TGS=)(.+)/';
 $frmMonitorTgs = preg_replace('/\s{1,}/', ',', $frmMonitorTgs);
 $frmMonitorTgs = preg_replace('/,{1,}/', ',', $frmMonitorTgs);
-$newVar[12]	= '${1}'. $frmMonitorTgs;
+$newVar[13]	= '${1}'. $frmMonitorTgs;
 if ($monitorTgsValue != $frmMonitorTgs) {
 	++$changes;
 }
-$oldVar[13]	= '/(TG_SELECT_TIMEOUT=)(\d+)/';
-$newVar[13]	= '${1}'. $frmTgTimeOut;
+$oldVar[14]	= '/(TG_SELECT_TIMEOUT=)(\d+)/';
+$newVar[14]	= '${1}'. $frmTgTimeOut;
 if ($tgSelectTOValue != $frmTgTimeOut) {
 	++$changes;
 }
 
-$oldVar[14]	= '/(SQL_DELAY=)(\d+)/';
-$newVar[14]	= '${1}'. $frmSqlDelay;
+$oldVar[15]	= '/(SQL_DELAY=)(\d+)/';
+$newVar[15]	= '${1}'. $frmSqlDelay;
 if ($sqlDelayValue != $frmSqlDelay) {
 	++$changes;
 }
 
-$oldVar[15]	= '/(TIMEOUT=)(\d+)\nTX/';
-$newVar[15]	= '${1}'. $frmTxTimeOut . PHP_EOL .'TX';
+$oldVar[16]	= '/(TIMEOUT=)(\d+)\nTX/';
+$newVar[16]	= '${1}'. $frmTxTimeOut . PHP_EOL .'TX';
 if ($txTimeOutValue != $frmTxTimeOut) {
 	++$changes;
 }
 
-$oldVar[16]	= '/(HOSTS=)(\S+)/';
-$newVar[16]	= '${1}'. $frmReflector .':'. $frmPort;
+$oldVar[17]	= '/(HOSTS=)(\S+)/';
+$newVar[17]	= '${1}'. $frmReflector .':'. $frmPort;
 
-$oldVar[17]	= '/(HOST_PORT=)(\d+)/';
-$newVar[17]	= '${1}'. $frmPort;
+$oldVar[18]	= '/(HOST_PORT=)(\d+)/';
+$newVar[18]	= '${1}'. $frmPort;
 
-$oldVar[18]	= '/(ANNOUNCE_CONNECTION_STATUS=)(\d+)/';
-$newVar[18]	= '${1}'. $frmACStatus;
+$oldVar[19]	= '/(ANNOUNCE_CONNECTION_STATUS=)(\d+)/';
+$newVar[19]	= '${1}'. $frmACStatus;
 if ($acsValue != (int)$frmACStatus) {
 	++$changes;
 	$profiles['connectionStatus'] = $frmACStatus;
 }
 
-$oldVar[19]	= '/(DEEMPHASIS=)(\d+)/';
-$newVar[19]	= '${1}'. $frmDeEmphasis;
+$oldVar[20]	= '/(DEEMPHASIS=)(\d+)/';
+$newVar[20]	= '${1}'. $frmDeEmphasis;
 if ($deEmphasisValue != (int)$frmDeEmphasis) {
 	++$changes;
 }
 
-$oldVar[20]	= '/(PREEMPHASIS=)(\d+)/';
-$newVar[20]	= '${1}'. $frmPreEmphasis;
+$oldVar[21]	= '/(PREEMPHASIS=)(\d+)/';
+$newVar[21]	= '${1}'. $frmPreEmphasis;
 if ($preEmphasisValue != (int)$frmPreEmphasis) {
 	++$changes;
 }
 
-$oldVar[21]	= '/(MASTER_GAIN=)(-?\d+)/';
-$newVar[21]	= '${1}'. $frmMasterGain;
+$oldVar[22]	= '/(MASTER_GAIN=)(-?\d+)/';
+$newVar[22]	= '${1}'. $frmMasterGain;
 if ($masterGainValue != (int)$frmMasterGain) {
 	++$changes;
 }
 
-$oldVar[22]	= '/(LIMITER_THRESH=)(-?\d+)/';
-$newVar[22]	= '${1}'. $frmLimiter;
+$oldVar[23]	= '/(LIMITER_THRESH=)(-?\d+)/';
+$newVar[23]	= '${1}'. $frmLimiter;
 if ($limiterValue != (int)$frmLimiter) {
 	++$changes;
 }
 
-$oldVar[23]	= '/(RECONNECT_SECONDS=)(\d+)/';
-$newVar[23]	= '${1}'. $frmReconnectS;
+$oldVar[24]	= '/(RECONNECT_SECONDS=)(\d+)/';
+$newVar[24]	= '${1}'. $frmReconnectS;
 if ($reconnectSValue != (int)$frmReconnectS) {
 	++$changes;
 }
